@@ -335,37 +335,47 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
     const initializeParticles = (count: number) => {
       if (!groupRef.current) return;
 
-      const baseMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0xffffff,
-        metalness: 0.1,
-        roughness: 0.2,
-        transmission: 0.92,
-        thickness: 0.5,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.1,
-        envMapIntensity: 1.2,
-        ior: 1.5,
-        reflectivity: 0.3,
-        emissive: 0xffffff,
-        emissiveIntensity: 0.05,
-        transparent: true,
-        opacity: 0.9,
+      // Remove old particles
+      particles.current.forEach((particle) => {
+        groupRef.current?.remove(particle.mesh);
       });
+      particles.current = [];
 
-      // Create particles with better initial distribution
-      particles.current = Array.from({ length: count }, (_, index) => {
-        const sizeVariation = 0.8 + Math.random() * 0.8;
+      for (let i = 0; i < count; i++) {
+        // Vary size less: 0.5x to 1.5x base
+        const sizeVariation = 0.5 + Math.random() * 1.0;
         const radius = BASE_RADIUS * sizeVariation;
 
+        // Randomly assign white, black, or red color
+        const colorRand = Math.random();
+        let color;
+        if (colorRand < 0.33) color = 0xffffff; // white
+        else if (colorRand < 0.66) color = 0x000000; // black
+        else color = 0xff0000; // red
+
+        const material = new THREE.MeshPhysicalMaterial({
+          color,
+          metalness: 0.1,
+          roughness: 0.2,
+          transmission: 0.92,
+          thickness: 0.5,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.1,
+          envMapIntensity: 1.2,
+          ior: 1.5,
+          reflectivity: 0.3,
+          emissive: color,
+          emissiveIntensity: 0.05,
+          transparent: true,
+          opacity: 0.9,
+        });
+
         const sphereGeometry = new THREE.SphereGeometry(radius, 64, 64);
-        const material = baseMaterial.clone();
         const mesh = new THREE.Mesh(sphereGeometry, material);
 
         // Fibonacci sphere distribution for more uniform spacing
-        const phi = Math.acos(-1 + (2 * index + 1) / count);
+        const phi = Math.acos(-1 + (2 * i + 1) / count);
         const theta = Math.sqrt(count * Math.PI) * phi;
-
-        // More uniform initial distribution
         const distanceFromCenter =
           PARTICLE_SPREAD * (0.8 + Math.random() * 0.2);
         const position = new THREE.Vector3(
@@ -375,20 +385,16 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         );
 
         mesh.position.copy(position);
-        groupRef.current?.add(mesh);
+        groupRef.current.add(mesh);
 
-        return {
+        particles.current.push({
           position,
           velocity: new THREE.Vector3(),
           mesh,
           radius: radius,
-          rotationSpeed: {
-            x: 0,
-            y: 0,
-            z: 0,
-          },
-        };
-      });
+          rotationSpeed: { x: 0, y: 0, z: 0 },
+        });
+      }
     };
 
     // Initial setup
