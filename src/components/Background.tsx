@@ -28,9 +28,10 @@ const CURSOR_FORCE = 15;
 const MIN_SEPARATION = 0.2; // Minimum distance between particles
 const SEPARATION_FORCE = 0.8; // Force to maintain separation
 const CENTER_FORCE = 0.04; // Reduced center attraction
-const ROTATION_SENSITIVITY = 0.03; // Adjusted for horizontal-only rotation
+const ROTATION_SENSITIVITY = 0.03;
 const ROTATION_INTERPOLATION = 0.15;
-const VELOCITY_SMOOTHING = 0.95; // Added back for particle physics
+const AUTO_ROTATION_SPEED = 0.005; // Reduced for smoother rotation
+const VELOCITY_SMOOTHING = 0.95;
 const CURSOR_LIGHT_INTENSITY = 2.0;
 const CURSOR_LIGHT_DISTANCE = 15;
 
@@ -91,7 +92,7 @@ function ControlPanel({
         className="control-panel"
         style={{
           position: "fixed",
-          top: 20,
+          bottom: 20,
           right: 20,
           padding: "12px",
           color: isHovered
@@ -104,7 +105,7 @@ function ControlPanel({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <h3
+        {/* <h3
           style={{
             marginTop: 0,
             marginBottom: "12px",
@@ -119,7 +120,7 @@ function ControlPanel({
           }}
         >
           System Controls
-        </h3>
+        </h3> */}
         <div style={{ marginBottom: "12px" }}>
           <label
             style={{
@@ -423,6 +424,25 @@ const ParticleSystem = forwardRef((props, ref) => {
   useFrame((state, delta) => {
     if (!groupRef.current) return;
 
+    // Auto-rotation when not dragging
+    if (!isDragging.current && !isInteracting.current) {
+      targetRotation.current.y += AUTO_ROTATION_SPEED;
+    }
+
+    // Horizontal-only rotation handling
+    if (isDragging.current && !isInteracting.current) {
+      const mouseDelta = mousePos.current.clone().sub(prevMousePos.current);
+      targetRotation.current.y += mouseDelta.x * ROTATION_SENSITIVITY;
+    }
+
+    // Smoother interpolation of rotation
+    lastRotation.current.y +=
+      (targetRotation.current.y - lastRotation.current.y) *
+      ROTATION_INTERPOLATION;
+
+    // Apply smoothed rotation
+    groupRef.current.rotation.y = lastRotation.current.y;
+
     // Handle scattering effect
     if (isScattering.current) {
       scatterTime.current += delta;
@@ -445,22 +465,6 @@ const ParticleSystem = forwardRef((props, ref) => {
         particle.velocity.add(scatterForce);
       });
     }
-
-    // Horizontal-only rotation handling
-    if (isDragging.current && !isInteracting.current) {
-      const mouseDelta = mousePos.current.clone().sub(prevMousePos.current);
-
-      // Only apply horizontal rotation
-      targetRotation.current.y += mouseDelta.x * ROTATION_SENSITIVITY;
-    }
-
-    // Smoother interpolation of rotation
-    lastRotation.current.y +=
-      (targetRotation.current.y - lastRotation.current.y) *
-      ROTATION_INTERPOLATION;
-
-    // Apply smoothed rotation
-    groupRef.current.rotation.y = lastRotation.current.y;
 
     // Calculate separation forces with temporal smoothing
     const separationForces = new Map<THREE.Mesh, THREE.Vector3>();

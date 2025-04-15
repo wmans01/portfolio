@@ -57,6 +57,13 @@ const LandingPage = () => {
           ))}
         </div>
       </div>
+      <div className="quote-container">
+        <p className="quote">
+          "Perfection is not attainable, but if we chase perfection we can catch
+          excellence."
+        </p>
+        <p className="quote-author">- Vince Lombardi</p>
+      </div>
     </div>
   );
 };
