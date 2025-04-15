@@ -1,0 +1,372 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  /* Colors */
+  --primary-dark: #1a1e28;
+  --accent-blue: #00b0ff;
+  --neon-green: #39ff14;
+  --secondary-gray: #a8a8a8;
+  --warm-beige: #f4e1c1;
+  --light-slate-blue: #5a6e8c;
+  --off-white: #f7f7f7;
+}
+
+/* Base Styles */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1e28;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--secondary-gray);
+}
+
+/* Landing Page Styles */
+.landing-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.name-title {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 4rem;
+}
+
+.name {
+  font-size: 8rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  font-family: "Inter", sans-serif;
+}
+
+.title-container {
+  position: relative;
+  height: 2.5rem;
+  margin-top: 1rem;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 4rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  text-align: center;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+.title.active {
+  opacity: 1;
+}
+
+/* Cursor Glow Effect
+.landing-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(0, 176, 255, 0.15),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+} */
+
+.landing-container:hover::before {
+  opacity: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+  color: var(--accent-blue);
+  margin: 0;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--neon-green);
+  color: var(--primary-dark);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: var(--accent-blue);
+  color: var(--primary-dark);
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+}
+
+/* Section Styles */
+.section-divider {
+  background-color: var(--light-slate-blue);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.section-highlight {
+  background-color: var(--warm-beige);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Text Transition Styles */
+.text-transition {
+  position: relative;
+  height: 2em;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
+.text-transition span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  text-align: center;
+}
+
+.text-transition span.active {
+  opacity: 1;
+}
+
+/* Add cursor glow to interactive elements */
+a,
+button,
+.interactive {
+  position: relative;
+  z-index: 1;
+}
+
+a::before,
+button::before,
+.interactive::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(0, 176, 255, 0.15),
+    transparent 40%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: -1;
+}
+
+a:hover::before,
+button:hover::before,
+.interactive:hover::before {
+  opacity: 1;
+}
+
+/* Utility Classes */
+.font-mono {
+  font-family: "Space Mono", monospace;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.logo-link {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+/* Override the general interactive hover effect for logo */
+.logo-link::before {
+  display: none;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+  color: var(--off-white);
+}
+
+/* Loading Animation Styles */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeOut 0.6s cubic-bezier(0.4, 0, 0.2, 1) 2s forwards;
+}
+
+.logo-container {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.loading-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.logo-reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-dark);
+  animation: revealLogo 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes revealLogo {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Hide physics settings during loading */
+.loading-overlay ~ * {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading-overlay ~ * {
+  animation: fadeInContent 1.2s cubic-bezier(0.4, 0, 0.2, 1) 1.5s forwards;
+}
+
+@keyframes fadeInContent {
+  0% {
+    visibility: visible;
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
