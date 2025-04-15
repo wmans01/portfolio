@@ -14,7 +14,7 @@ const LandingPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentText((prev) => (prev + 1) % texts.length);
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
