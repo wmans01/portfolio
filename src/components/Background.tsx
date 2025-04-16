@@ -56,8 +56,11 @@ function ControlPanel({
   onScatter,
 }: ControlPanelProps) {
   const [tempParticleCount, setTempParticleCount] = useState(particleCount);
-  const [isInteracting, setIsInteracting] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    setTempParticleCount(particleCount);
+  }, [particleCount]);
 
   return (
     <>
@@ -111,22 +114,6 @@ function ControlPanel({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* <h3
-          style={{
-            marginTop: 0,
-            marginBottom: "12px",
-            fontSize: "12px",
-            fontWeight: 500,
-            letterSpacing: "0.5px",
-            color: isHovered
-              ? "rgba(255, 255, 255, 0.9)"
-              : "rgba(255, 255, 255, 0.3)",
-            textTransform: "uppercase",
-            transition: "color 0.3s ease",
-          }}
-        >
-          System Controls
-        </h3> */}
         <div style={{ marginBottom: "12px" }}>
           <label
             style={{
@@ -149,9 +136,8 @@ function ControlPanel({
             max="100"
             value={tempParticleCount}
             onChange={(e) => setTempParticleCount(Number(e.target.value))}
-            onMouseDown={() => setIsInteracting(true)}
+            onMouseDown={() => {}}
             onMouseUp={() => {
-              setIsInteracting(false);
               onParticleCountChange(tempParticleCount);
             }}
             style={{
@@ -191,8 +177,8 @@ function ControlPanel({
             step="0.1"
             value={centerForce}
             onChange={(e) => onCenterForceChange(Number(e.target.value))}
-            onMouseDown={() => setIsInteracting(true)}
-            onMouseUp={() => setIsInteracting(false)}
+            onMouseDown={() => {}}
+            onMouseUp={() => {}}
             style={{
               width: "160px",
               height: "1px",
@@ -269,12 +255,11 @@ interface ParticleSystemProps {
 }
 const ParticleSystem = forwardRef<any, ParticleSystemProps>(
   ({ centerForce }, ref) => {
-    const { scene, pointer, viewport } = useThree();
+    const { scene, viewport } = useThree();
     const particles = useRef<Particle[]>([]);
     const mousePos = useRef(new THREE.Vector3());
     const prevMousePos = useRef(new THREE.Vector3());
     const isDragging = useRef(false);
-    const rotationVelocity = useRef(new THREE.Vector3(0, 0, 0));
     const groupRef = useRef<THREE.Group>(null);
     const lastRotation = useRef(new THREE.Vector2(0, 0));
     const targetRotation = useRef(new THREE.Vector2(0, 0));
@@ -330,9 +315,6 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         }
         // Create new particles
         initializeParticles(count);
-      },
-      setCenterForce: (force: number) => {
-        // Implement the logic to update the center force
       },
     }));
 
@@ -469,7 +451,7 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
     }, [viewport.width, viewport.height]);
 
     // Animation loop
-    useFrame((state, delta) => {
+    useFrame(() => {
       if (!groupRef.current) return;
 
       // Auto-rotation when not dragging
