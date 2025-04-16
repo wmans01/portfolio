@@ -7,6 +7,7 @@ import {
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import React from "react";
 
 interface Particle {
   position: THREE.Vector3;
@@ -96,9 +97,10 @@ function ControlPanel({
         className="control-panel"
         style={{
           position: "fixed",
-          bottom: 20,
+          top: "40%",
           right: 20,
           padding: "12px",
+          display: window.innerWidth < 600 && !isHovered ? "none" : "block", // Hide on phone screens only when not hovered
           color: isHovered
             ? "rgba(255, 255, 255, 0.9)"
             : "rgba(255, 255, 255, 0.3)",
@@ -329,6 +331,9 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         // Create new particles
         initializeParticles(count);
       },
+      setCenterForce: (force: number) => {
+        // Implement the logic to update the center force
+      },
     }));
 
     // Initialize particles function
@@ -346,12 +351,12 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         const sizeVariation = 0.5 + Math.random() * 1.0;
         const radius = BASE_RADIUS * sizeVariation;
 
-        // Randomly assign white, black, or red color
+        // Randomly assign white, black, or blue color
         const colorRand = Math.random();
         let color;
         if (colorRand < 0.33) color = 0xffffff; // white
         else if (colorRand < 0.66) color = 0x000000; // black
-        else color = 0xff0000; // red
+        else color = 0x00b0ff; // blue (was red)
 
         const material = new THREE.MeshPhysicalMaterial({
           color,
@@ -576,7 +581,11 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
 
 ParticleSystem.displayName = "ParticleSystem";
 
-function Background() {
+interface BackgroundProps {
+  show3D?: boolean;
+}
+
+const Background: React.FC<BackgroundProps> = ({ show3D = false }) => {
   const [particleCount, setParticleCount] = useState(PARTICLE_COUNT);
   const [centerForce, setCenterForce] = useState(1);
   const particleSystemRef = useRef<any>(null);
@@ -584,7 +593,7 @@ function Background() {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.code === "Space" && particleSystemRef.current) {
-        e.preventDefault(); // Prevent page scroll
+        e.preventDefault();
         particleSystemRef.current.handleScatter();
       }
     };
@@ -609,45 +618,64 @@ function Background() {
 
   return (
     <>
-      <ControlPanel
-        particleCount={particleCount}
-        centerForce={centerForce}
-        onParticleCountChange={handleParticleCountChange}
-        onCenterForceChange={handleCenterForceChange}
-        onScatter={() => {
-          if (particleSystemRef.current) {
-            particleSystemRef.current.handleScatter();
-          }
-        }}
-      />
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: 0,
-          userSelect: "none",
-          WebkitUserSelect: "none",
-          cursor: "grab",
-        }}
-      >
-        <Canvas camera={{ position: [0, 0, 30], fov: 75 }} shadows>
-          <color attach="background" args={["#1a1e28"]} />
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} intensity={0.4} color="#ffffff" />
-          <pointLight
-            position={[-10, -10, 10]}
-            intensity={0.4}
-            color="#ffffff"
+      {show3D && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+            userSelect: "none",
+            WebkitUserSelect: "none",
+            cursor: "grab",
+          }}
+        >
+          <Canvas camera={{ position: [0, 0, 30], fov: 75 }} shadows>
+            <color attach="background" args={["#1a1e28"]} />
+            <ambientLight intensity={0.5} />
+            <pointLight
+              position={[10, 10, 10]}
+              intensity={0.4}
+              color="#ffffff"
+            />
+            <pointLight
+              position={[-10, -10, 10]}
+              intensity={0.4}
+              color="#ffffff"
+            />
+            <CursorLight />
+            <ParticleSystem centerForce={centerForce} ref={particleSystemRef} />
+          </Canvas>
+        </div>
+      )}
+      {show3D && (
+        <div
+          style={{
+            position: "fixed",
+            top: "40%",
+            right: 20,
+            zIndex: 9999,
+            pointerEvents: "auto",
+          }}
+        >
+          <ControlPanel
+            particleCount={particleCount}
+            centerForce={centerForce}
+            onParticleCountChange={handleParticleCountChange}
+            onCenterForceChange={handleCenterForceChange}
+            onScatter={() => {
+              if (particleSystemRef.current) {
+                particleSystemRef.current.handleScatter();
+              }
+            }}
           />
-          <CursorLight />
-          <ParticleSystem centerForce={centerForce} ref={particleSystemRef} />
-        </Canvas>
-      </div>
+        </div>
+      )}
+      {!show3D && <div className="solid-background" />}
     </>
   );
-}
+};
 
 export default Background;

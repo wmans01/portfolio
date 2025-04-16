@@ -5,10 +5,10 @@ const LandingPage = () => {
   const [currentText, setCurrentText] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const texts = [
-    "Engineer.",
-    "Entrepreneur.",
-    "Game Developer.",
-    "Procrastinator.",
+    "Engineer",
+    "Entrepreneur",
+    "Game Developer",
+    "Procrastinator",
   ];
 
   useEffect(() => {
