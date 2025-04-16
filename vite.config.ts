@@ -7,10 +7,15 @@ export default defineConfig({
   css: {
     postcss: "./postcss.config.js",
   },
-  base: "/",
+  base: "./",
   build: {
     outDir: "dist",
     assetsDir: "assets",
     sourcemap: false,
+    rollupOptions: {
+      output: {
+        assetFileNames: "assets/[name][extname]",
+      },
+    },
   },
 });
