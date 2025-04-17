@@ -564,13 +564,38 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
 ParticleSystem.displayName = "ParticleSystem";
 
 interface BackgroundProps {
-  show3D?: boolean;
+  show3D: boolean;
 }
 
-const Background: React.FC<BackgroundProps> = ({ show3D = false }) => {
+const Background: React.FC<BackgroundProps> = ({ show3D }) => {
   const [particleCount, setParticleCount] = useState(PARTICLE_COUNT);
   const [centerForce, setCenterForce] = useState(1);
   const particleSystemRef = useRef<any>(null);
+  const [currentText, setCurrentText] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const texts = [
+    "Engineer",
+    "Entrepreneur",
+    "Game Developer",
+    "Procrastinator",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText((prev) => (prev + 1) % texts.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -608,10 +633,6 @@ const Background: React.FC<BackgroundProps> = ({ show3D = false }) => {
             left: 0,
             width: "100%",
             height: "100%",
-            zIndex: 0,
-            userSelect: "none",
-            WebkitUserSelect: "none",
-            cursor: "grab",
           }}
         >
           <Canvas camera={{ position: [0, 0, 30], fov: 75 }} shadows>
@@ -647,15 +668,43 @@ const Background: React.FC<BackgroundProps> = ({ show3D = false }) => {
             centerForce={centerForce}
             onParticleCountChange={handleParticleCountChange}
             onCenterForceChange={handleCenterForceChange}
-            onScatter={() => {
-              if (particleSystemRef.current) {
-                particleSystemRef.current.handleScatter();
-              }
-            }}
+            onScatter={() => particleSystemRef.current?.handleScatter()}
           />
+          <div
+            className="landing-container"
+            style={
+              {
+                "--mouse-x": `${mousePosition.x}px`,
+                "--mouse-y": `${mousePosition.y}px`,
+              } as React.CSSProperties
+            }
+          >
+            <div className="name-title">
+              <h1 className="name" style={{ color: "var(--off-white)" }}>
+                Jeremy Wang
+              </h1>
+              <div className="title-container">
+                {texts.map((text, index) => (
+                  <span
+                    key={text}
+                    className={`title ${index === currentText ? "active" : ""}`}
+                    style={{ color: "var(--accent-blue)" }}
+                  >
+                    {text}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="quote-container">
+              <p className="quote">
+                "Perfection is not attainable, but if we chase perfection we can
+                catch excellence."
+              </p>
+              <p className="quote-author">- Vince Lombardi</p>
+            </div>
+          </div>
         </div>
       )}
-      {!show3D && <div className="solid-background" />}
     </>
   );
 };

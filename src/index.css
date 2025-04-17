@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Colors */
   --primary-dark: #1a1e28;
@@ -44,13 +48,20 @@ body {
 }
 
 body {
-  font-family: "Inter", sans-serif;
-  color: var(--secondary-gray);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--primary-dark);
+  color: white;
 }
 
 /* Landing Page Styles */
 .landing-container {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -59,6 +70,7 @@ body {
   align-items: center;
   overflow: hidden;
   z-index: 1;
+  pointer-events: none;
 }
 
 .name-title {
@@ -67,6 +79,7 @@ body {
   z-index: 2;
   margin-bottom: 4rem;
   width: 100%;
+  pointer-events: none;
 }
 
 .name {
@@ -299,12 +312,13 @@ button:hover::before,
   position: fixed;
   top: 2rem;
   left: 2rem;
-  z-index: 10;
+  z-index: 9998;
   transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .logo-link:hover {
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 /* Override the general interactive hover effect for logo */
@@ -430,10 +444,10 @@ button:hover::before,
   position: fixed;
   top: 2rem;
   right: 2rem;
+  z-index: 9999;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 10000;
   padding: 0;
   width: 40px;
   height: 40px;
@@ -460,17 +474,6 @@ button:hover::before,
   transform: rotate(-45deg) translate(3.5px, -3.5px);
 }
 
-/* Control Panel Styles */
-.control-panel {
-  position: fixed;
-  top: 40%;
-  right: 20px;
-  z-index: 9998;
-  pointer-events: auto;
-  transition: opacity 0.3s ease;
-}
-
-/* Menu Overlay Styles */
 .menu-overlay {
   position: fixed;
   top: 0;
@@ -478,7 +481,7 @@ button:hover::before,
   width: 100%;
   height: 100%;
   background-color: rgba(26, 30, 40, 0.98);
-  z-index: 9999;
+  z-index: 9998;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -502,6 +505,7 @@ button:hover::before,
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+  font-family: "Inter", sans-serif;
 }
 
 .menu-content a:hover {
@@ -526,20 +530,6 @@ button:hover::before,
   }
 }
 
-.menu-overlay .hamburger {
-  z-index: 10000;
-}
-
-/* Control panel stays visible but covered by menu */
-.menu-overlay ~ div > .control-panel {
-  pointer-events: none !important;
-  z-index: 9998;
-}
-
-.menu-overlay ~ div > .control-panel {
-  opacity: 0.5;
-}
-
 /* Page Container Styles */
 .page-container {
   padding: 2rem;
@@ -559,6 +549,15 @@ button:hover::before,
   z-index: 0;
 }
 
+.background.visible {
+  opacity: 1;
+}
+
+/* Ensure background is visible for landing page */
+.background[data-path="/"] {
+  opacity: 1;
+}
+
 .solid-background {
   position: fixed;
   top: 0;
@@ -566,4 +565,29 @@ button:hover::before,
   width: 100%;
   height: 100%;
   background-color: #1a1e28;
+}
+
+.content-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-container.hidden {
+  display: none;
+}
+
+/* Ensure the background stays fixed during transitions */
+.background-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
