@@ -16,6 +16,7 @@ const About: React.FC = () => {
       <img
         src="/pfp.jpg"
         alt="Profile"
+        loading="lazy"
         style={{
           width: 220,
           height: 220,
@@ -67,14 +68,14 @@ const About: React.FC = () => {
           }}
         >
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:jeremywang@gmail.com"
             aria-label="Email"
             style={{ color: "var(--off-white)", fontSize: 32 }}
           >
             <i className="fas fa-envelope"></i>
           </a>
           <a
-            href="https://linkedin.com/in/your-linkedin"
+            href="https://www.linkedin.com/in/jeremy-wang-006686312/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -83,7 +84,7 @@ const About: React.FC = () => {
             <i className="fab fa-linkedin"></i>
           </a>
           <a
-            href="https://github.com/your-github"
+            href="https://github.com/wmans01"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

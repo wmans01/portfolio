@@ -7,8 +7,8 @@ import {
 import HamburgerMenu from "./components/HamburgerMenu";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
-import HardwareProjects from "./pages/HardwareProjects";
-import SoftwareProjects from "./pages/SoftwareProjects";
+import Hardware from "./pages/Hardware";
+import Software from "./pages/Software";
 import Blog from "./pages/Blog";
 import Background from "./components/Background";
 import LoadingAnimation from "./components/LoadingAnimation";
@@ -47,18 +47,22 @@ function AppContent() {
       <Logo />
       <HamburgerMenu />
       <LoadingAnimation />
-      <div className="content-container">
+      <div
+        className={`content-container ${
+          location.pathname === "/" ? "content-container-centered" : ""
+        }`}
+      >
         <Routes location={displayLocation}>
           <Route path="/" element={renderPage(() => null, true)} />
           <Route path="/about" element={renderPage(About, false)} />
           <Route path="/projects" element={renderPage(Projects, false)} />
           <Route
             path="/projects/hardware"
-            element={renderPage(HardwareProjects, false)}
+            element={renderPage(Hardware, false)}
           />
           <Route
             path="/projects/software"
-            element={renderPage(SoftwareProjects, false)}
+            element={renderPage(Software, false)}
           />
           <Route path="/blog" element={renderPage(Blog, false)} />
         </Routes>

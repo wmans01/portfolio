@@ -68,23 +68,19 @@ function ControlPanel({
         {`
           .custom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 1px;
-            height: 16px;
+            width: 2px;
+            height: 12px;
             background: ${
-              isHovered
-                ? "rgba(255, 255, 255, 0.5)"
-                : "rgba(255, 255, 255, 0.2)"
+              isHovered ? "var(--accent-blue)" : "rgba(0, 176, 255, 0.5)"
             };
             cursor: pointer;
             transition: all 0.3s ease;
           }
           .custom-slider::-moz-range-thumb {
-            width: 1px;
-            height: 16px;
+            width: 2px;
+            height: 12px;
             background: ${
-              isHovered
-                ? "rgba(255, 255, 255, 0.5)"
-                : "rgba(255, 255, 255, 0.2)"
+              isHovered ? "var(--accent-blue)" : "rgba(0, 176, 255, 0.5)"
             };
             cursor: pointer;
             border: none;
@@ -102,29 +98,32 @@ function ControlPanel({
           position: "fixed",
           top: "40%",
           right: 20,
-          padding: "12px",
-          display: window.innerWidth < 600 && !isHovered ? "none" : "block", // Hide on phone screens only when not hovered
-          color: isHovered
-            ? "rgba(255, 255, 255, 0.9)"
-            : "rgba(255, 255, 255, 0.3)",
+          padding: "16px",
+          display: window.innerWidth < 600 && !isHovered ? "none" : "block",
+          backgroundColor: "rgba(26, 30, 40, 0.95)",
+          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(0, 176, 255, 0.2)",
+          borderRadius: "8px",
+          color: isHovered ? "var(--off-white)" : "rgba(255, 255, 255, 0.7)",
           fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
           zIndex: 1000,
           transition: "all 0.3s ease",
+          boxShadow: "0 4px 20px rgba(0, 176, 255, 0.1)",
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div style={{ marginBottom: "12px" }}>
+        <div style={{ marginBottom: "16px" }}>
           <label
             style={{
               display: "block",
-              marginBottom: "4px",
-              fontSize: "11px",
-              fontWeight: 400,
+              marginBottom: "8px",
+              fontSize: "12px",
+              fontWeight: 500,
               color: isHovered
-                ? "rgba(255, 255, 255, 0.7)"
-                : "rgba(255, 255, 255, 0.2)",
-              letterSpacing: "0.3px",
+                ? "var(--accent-blue)"
+                : "rgba(0, 176, 255, 0.7)",
+              letterSpacing: "0.5px",
               transition: "color 0.3s ease",
             }}
           >
@@ -141,30 +140,31 @@ function ControlPanel({
               onParticleCountChange(tempParticleCount);
             }}
             style={{
-              width: "160px",
-              height: "1px",
+              width: "180px",
+              height: "2px",
               background: isHovered
-                ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(255, 255, 255, 0.05)",
+                ? "rgba(0, 176, 255, 0.2)"
+                : "rgba(0, 176, 255, 0.1)",
               outline: "none",
               WebkitAppearance: "none",
               cursor: "pointer",
               transition: "background 0.3s ease",
+              borderRadius: "1px",
             }}
             className="custom-slider"
           />
         </div>
-        <div style={{ marginBottom: "16px" }}>
+        <div style={{ marginBottom: "20px" }}>
           <label
             style={{
               display: "block",
-              marginBottom: "4px",
-              fontSize: "11px",
-              fontWeight: 400,
+              marginBottom: "8px",
+              fontSize: "12px",
+              fontWeight: 500,
               color: isHovered
-                ? "rgba(255, 255, 255, 0.7)"
-                : "rgba(255, 255, 255, 0.2)",
-              letterSpacing: "0.3px",
+                ? "var(--accent-blue)"
+                : "rgba(0, 176, 255, 0.7)",
+              letterSpacing: "0.5px",
               transition: "color 0.3s ease",
             }}
           >
@@ -180,15 +180,16 @@ function ControlPanel({
             onMouseDown={() => {}}
             onMouseUp={() => {}}
             style={{
-              width: "160px",
-              height: "1px",
+              width: "180px",
+              height: "2px",
               background: isHovered
-                ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(255, 255, 255, 0.05)",
+                ? "rgba(0, 176, 255, 0.2)"
+                : "rgba(0, 176, 255, 0.1)",
               outline: "none",
               WebkitAppearance: "none",
               cursor: "pointer",
               transition: "background 0.3s ease",
+              borderRadius: "1px",
             }}
             className="custom-slider"
           />
@@ -196,25 +197,26 @@ function ControlPanel({
         <button
           onClick={onScatter}
           style={{
-            padding: "6px 12px",
+            padding: "8px 16px",
             backgroundColor: "transparent",
-            color: isHovered
-              ? "rgba(255, 255, 255, 0.9)"
-              : "rgba(255, 255, 255, 0.3)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            color: isHovered ? "var(--accent-blue)" : "rgba(0, 176, 255, 0.7)",
+            border: "1px solid rgba(0, 176, 255, 0.2)",
             borderRadius: "4px",
             cursor: "pointer",
             fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-            fontSize: "11px",
+            fontSize: "12px",
             fontWeight: 500,
             letterSpacing: "0.5px",
             transition: "all 0.3s ease",
+            width: "100%",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.2)";
+            e.currentTarget.style.borderColor = "var(--accent-blue)";
+            e.currentTarget.style.backgroundColor = "rgba(0, 176, 255, 0.1)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.1)";
+            e.currentTarget.style.borderColor = "rgba(0, 176, 255, 0.2)";
+            e.currentTarget.style.backgroundColor = "transparent";
           }}
         >
           Scatter (Space)
