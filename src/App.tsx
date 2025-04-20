@@ -15,6 +15,7 @@ import LoadingAnimation from "./components/LoadingAnimation";
 import Logo from "./components/Logo";
 import PageTransition from "./components/PageTransition";
 import { useState, useEffect } from "react";
+import NotFound from "./pages/NotFound";
 
 function AppContent() {
   const location = useLocation();
@@ -64,7 +65,8 @@ function AppContent() {
             path="/projects/software"
             element={renderPage(Software, false)}
           />
-          <Route path="/blog" element={renderPage(Blog, false)} />
+          <Route path="/diary" element={renderPage(Blog, false)} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>

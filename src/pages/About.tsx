@@ -3,7 +3,7 @@ import React from "react";
 const About: React.FC = () => {
   return (
     <div
-      className="page-container"
+      className="unclickable"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -11,6 +11,7 @@ const About: React.FC = () => {
         justifyContent: "center",
         minHeight: "100vh",
         background: "#1a1e28",
+        cursor: "auto",
       }}
     >
       <img
@@ -70,7 +71,13 @@ const About: React.FC = () => {
           <a
             href="mailto:jeremywang@gmail.com"
             aria-label="Email"
-            style={{ color: "var(--off-white)", fontSize: 32 }}
+            style={{
+              color: "var(--off-white)",
+              fontSize: 32,
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+            className="hover:scale-120"
           >
             <i className="fas fa-envelope"></i>
           </a>
@@ -79,7 +86,13 @@ const About: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            style={{ color: "var(--off-white)", fontSize: 32 }}
+            style={{
+              color: "var(--off-white)",
+              fontSize: 32,
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+            className="hover:scale-120"
           >
             <i className="fab fa-linkedin"></i>
           </a>
@@ -88,7 +101,13 @@ const About: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            style={{ color: "var(--off-white)", fontSize: 32 }}
+            style={{
+              color: "var(--off-white)",
+              fontSize: 32,
+              transition: "all 0.3s ease",
+              cursor: "pointer",
+            }}
+            className="hover:scale-120"
           >
             <i className="fab fa-github"></i>
           </a>

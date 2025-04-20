@@ -492,7 +492,7 @@ const Projects: React.FC = () => {
               letterSpacing: "0.05em",
             }}
           >
-            EXPLORE PROJECTS
+            Explore Projects
           </h3>
           <div
             style={{
@@ -617,6 +617,7 @@ const Projects: React.FC = () => {
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
                 margin: 0,
+                fontFamily: "'Poppins', sans-serif",
               }}
             >
               {hoveredSphere === "software" ? "Software" : "Hardware"}

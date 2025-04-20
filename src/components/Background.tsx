@@ -219,7 +219,7 @@ function ControlPanel({
             e.currentTarget.style.backgroundColor = "transparent";
           }}
         >
-          Scatter (Space)
+          Scatter
         </button>
       </div>
     </>
@@ -702,7 +702,7 @@ const Background: React.FC<BackgroundProps> = ({ show3D }) => {
                 "Perfection is not attainable, but if we chase perfection we can
                 catch excellence."
               </p>
-              <p className="quote-author">- Vince Lombardi</p>
+              <p className="quote-author">- VINCE LOMBARDI</p>
             </div>
           </div>
         </div>

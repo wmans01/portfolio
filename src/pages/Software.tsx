@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import PageLayout from "../components/Layout/PageLayout";
+import ProjectModal from "../components/ProjectModal";
 
 interface Project {
   id: string;
@@ -103,142 +103,101 @@ const Software: React.FC = () => {
   }, [searchQuery, sortBy]);
 
   return (
-    <PageLayout>
+    <div className="min-h-screen w-full" style={{ cursor: "default" }}>
       {/* Header */}
-      <h1 className="page-title text-center">Software Projects</h1>
-
-      {/* Search and Filter */}
-      <div className="search-filter-container">
-        <input
-          type="text"
-          placeholder="Search projects..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as SortOption)}
-        >
-          <option value="date">Latest</option>
-          <option value="name">A-Z</option>
-          <option value="random">Random</option>
-        </select>
+      <div className="sticky top-20 bg-[#1a1e28] w-[80%] mx-auto z-10">
+        <h1 className="text-4xl font-bold text-center text-[#00b0ff] py-4 font-[`Inter`, sans-serif]">
+          Software Projects
+        </h1>
       </div>
 
-      {/* Project Grid */}
-      <div className="grid-container">
-        {filteredAndSortedProjects.map((project) => (
+      {/* Spacer */}
+      <div className="h-[100px]" />
+
+      {/* Main Content */}
+      <div className="flex flex-col items-center">
+        {/* Search and Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="hidden md:block w-[30%] px-4 mb-8"
+        >
           <motion.div
-            key={project.id}
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="card"
-            onClick={() => setSelectedProject(project)}
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-[#2a2f3e] rounded-xl p-2 flex items-center gap-8"
           >
-            <div className="aspect-video overflow-hidden">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="p-4">
-              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-              <p className="text-gray-400 mb-2 line-clamp-2">
-                {project.description}
-              </p>
-              <span className="text-sm text-[#00b0ff]">
-                {new Date(project.date).toLocaleDateString()}
-              </span>
-            </div>
+            <motion.input
+              type="text"
+              placeholder="Search projects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-transparent border-none text-white px-4 py-2 text-sm flex-1 focus:outline-none"
+              whileFocus={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+              style={{ cursor: "text" }}
+            />
+            <motion.select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as SortOption)}
+              className="bg-[#1a1e28] border border-[#3a3f4e] text-white px-4 py-2 text-sm rounded-lg appearance-none bg-[url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 24 24%22 stroke=%22%2300b0ff%22%3E%3Cpath stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%222%22 d=%22M19 9l-7 7-7-7%22%3E%3C/path%3E%3C/svg%3E')] bg-no-repeat bg-[right_0.5rem_center] bg-[length:1.5em] pr-8"
+              whileHover={{ scale: 1.05 }}
+              whileFocus={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+              style={{ cursor: "pointer" }}
+            >
+              <option value="date">Latest</option>
+              <option value="name">A-Z</option>
+              <option value="random">Random</option>
+            </motion.select>
           </motion.div>
-        ))}
+        </motion.div>
+
+        {/* Project Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-8 w-[80%]">
+          {filteredAndSortedProjects.map((project) => (
+            <motion.div
+              key={project.id}
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="bg-[#2a2f3e] rounded-xl overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-[0_4px_20px_rgba(0,176,255,0.2)] cursor-pointer"
+              onClick={() => setSelectedProject(project)}
+            >
+              <div className="aspect-video overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="!p-4">
+                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                <p className="text-gray-400 mb-2 line-clamp-2">
+                  {project.description}
+                </p>
+                <span className="text-sm text-[#00b0ff]">
+                  {new Date(project.date).toLocaleDateString()}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm flex items-center justify-center p-4 z-[100]"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="card max-w-4xl max-h-[90vh] w-full flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative h-80">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all"
-                >
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div className="p-8 overflow-y-auto flex-grow">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold">
-                    {selectedProject.title}
-                  </h2>
-                  <span className="text-[#00b0ff]">
-                    {new Date(selectedProject.date).toLocaleDateString()}
-                  </span>
-                </div>
-                <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                  {selectedProject.fullDescription}
-                </p>
-                <div className="flex gap-4">
-                  {selectedProject.links?.github && (
-                    <a
-                      href={selectedProject.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-[#00b0ff] text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all"
-                    >
-                      View on GitHub
-                    </a>
-                  )}
-                  {selectedProject.links?.demo && (
-                    <a
-                      href={selectedProject.links.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-[#00b0ff] text-white px-6 py-3 rounded-lg font-medium hover:bg-opacity-90 transition-all"
-                    >
-                      View Demo
-                    </a>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </PageLayout>
+      <div
+        className={`fixed inset-0 ${selectedProject ? "z-[100]" : "z-[-1]"}`}
+      >
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      </div>
+    </div>
   );
 };
 

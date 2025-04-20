@@ -50,8 +50,8 @@ const HamburgerMenu: React.FC = () => {
             <Link to="/projects" onClick={() => handleNavigation("/projects")}>
               Projects
             </Link>
-            <Link to="/blog" onClick={() => handleNavigation("/blog")}>
-              Blog
+            <Link to="/diary" onClick={() => handleNavigation("/diary")}>
+              Diary
             </Link>
           </nav>
         </div>
