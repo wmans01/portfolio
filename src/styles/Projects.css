@@ -1,0 +1,60 @@
+.mobile-projects-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--primary-dark);
+}
+
+.mobile-button {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.mobile-button.software {
+  background: linear-gradient(135deg, var(--accent-blue), #0066cc);
+  color: var(--off-white);
+  box-shadow: 0 4px 20px rgba(0, 176, 255, 0.3);
+}
+
+.mobile-button.hardware {
+  background: linear-gradient(135deg, #333333, #000000);
+  color: var(--off-white);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-button h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.softwareText {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: "Poppins", sans-serif;
+  color: var(--off-white);
+}
+
+.mobile-button p {
+  font-size: 1rem;
+  opacity: 0.9;
+  font-family: "Space Mono", monospace;
+}
+
+.mobile-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 176, 255, 0.4);
+}
+
+.mobile-button.hardware:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}

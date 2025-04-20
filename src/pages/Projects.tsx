@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as THREE from "three";
+import { motion } from "framer-motion";
+import "../styles/Projects.css";
 
 const Projects: React.FC = () => {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ const Projects: React.FC = () => {
     "software" | "hardware" | null
   >(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const initScene = () => {
     if (!containerRef.current) return;
@@ -190,7 +193,7 @@ const Projects: React.FC = () => {
       return { baseSize, orbitRadius, verticalOffset };
     };
 
-    const { baseSize, orbitRadius, verticalOffset } = getResponsiveSizes();
+    const { baseSize } = getResponsiveSizes();
 
     // Create spheres with responsive size
     const softwareGeometry = new THREE.SphereGeometry(baseSize, 64, 64);
@@ -303,7 +306,7 @@ const Projects: React.FC = () => {
 
     // Update handleResize
     const handleResize = () => {
-      const { baseSize, orbitRadius } = getResponsiveSizes();
+      const { baseSize } = getResponsiveSizes();
 
       if (softwareSphereRef.current && hardwareSphereRef.current) {
         softwareSphereRef.current.scale.setScalar(baseSize);
@@ -321,137 +324,180 @@ const Projects: React.FC = () => {
     handleResize();
   };
 
-  useEffect(() => {
-    initScene();
-    console.log("Scene initialized");
+  const handleMouseMove = (event: MouseEvent) => {
+    console.log("Mouse move event triggered");
 
-    // Add raycaster for hover detection
-    const raycaster = new THREE.Raycaster();
+    // Get the container's bounding rect
+    const containerBounds = containerRef.current?.getBoundingClientRect();
+    if (!containerBounds) return;
+
+    // Calculate mouse position relative to the container
+    const x = event.clientX - containerBounds.left;
+    const y = event.clientY - containerBounds.top;
+
+    // Update mouse position for card placement
+    setMousePosition({ x: event.clientX, y: event.clientY });
+
+    // Calculate mouse position in normalized device coordinates
     const mouse = new THREE.Vector2();
+    mouse.x = (x / containerBounds.width) * 2 - 1;
+    mouse.y = -(y / containerBounds.height) * 2 + 1;
 
-    const handleMouseMove = (event: MouseEvent) => {
-      console.log("Mouse move event triggered");
+    console.log("Normalized mouse coordinates:", { x: mouse.x, y: mouse.y });
 
-      // Get the container's bounding rect
-      const containerBounds = containerRef.current?.getBoundingClientRect();
-      if (!containerBounds) return;
-
-      // Calculate mouse position relative to the container
-      const x = event.clientX - containerBounds.left;
-      const y = event.clientY - containerBounds.top;
-
-      // Update mouse position for card placement
-      setMousePosition({ x: event.clientX, y: event.clientY });
-
-      // Calculate mouse position in normalized device coordinates
-      mouse.x = (x / containerBounds.width) * 2 - 1;
-      mouse.y = -(y / containerBounds.height) * 2 + 1;
-
-      console.log("Normalized mouse coordinates:", { x: mouse.x, y: mouse.y });
-
-      if (
-        !sceneRef.current ||
-        !cameraRef.current ||
-        !softwareSphereRef.current ||
-        !hardwareSphereRef.current
-      ) {
-        console.log("Missing required refs:", {
-          scene: !!sceneRef.current,
-          camera: !!cameraRef.current,
-          software: !!softwareSphereRef.current,
-          hardware: !!hardwareSphereRef.current,
-        });
-        return;
-      }
-
-      raycaster.setFromCamera(mouse, cameraRef.current);
-
-      const objectsToTest = [
-        softwareSphereRef.current,
-        hardwareSphereRef.current,
-      ];
-      console.log(
-        "Testing intersection with objects:",
-        objectsToTest.map((obj) => obj.name)
-      );
-
-      const intersects = raycaster.intersectObjects(objectsToTest);
-      console.log("Intersections found:", intersects.length);
-
-      if (intersects.length > 0) {
-        const hoveredObject = intersects[0].object;
-        console.log("Intersected object:", hoveredObject.name);
-
-        if (hoveredObject === softwareSphereRef.current) {
-          console.log("Setting hover state to software");
-          setHoveredSphere("software");
-          document.body.style.cursor = "pointer";
-        } else if (hoveredObject === hardwareSphereRef.current) {
-          console.log("Setting hover state to hardware");
-          setHoveredSphere("hardware");
-          document.body.style.cursor = "pointer";
-        }
-      } else {
-        setHoveredSphere(null);
-        document.body.style.cursor = "default";
-      }
-    };
-
-    // Add click handler
-    const handleClick = (event: MouseEvent) => {
-      const containerBounds = containerRef.current?.getBoundingClientRect();
-      if (!containerBounds) return;
-
-      const x = event.clientX - containerBounds.left;
-      const y = event.clientY - containerBounds.top;
-
-      const mouse = new THREE.Vector2();
-      mouse.x = (x / containerBounds.width) * 2 - 1;
-      mouse.y = -(y / containerBounds.height) * 2 + 1;
-
-      const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera(mouse, cameraRef.current!);
-
-      const intersects = raycaster.intersectObjects([
-        softwareSphereRef.current!,
-        hardwareSphereRef.current!,
-      ]);
-
-      if (intersects.length > 0) {
-        const clickedObject = intersects[0].object;
-        if (clickedObject === softwareSphereRef.current) {
-          navigate("/projects/software");
-        } else if (clickedObject === hardwareSphereRef.current) {
-          navigate("/projects/hardware");
-        }
-      }
-    };
-
-    // Attach the event listeners to the container
-    const container = containerRef.current;
-    if (container) {
-      console.log("Attaching event listeners to container");
-      container.addEventListener("mousemove", handleMouseMove);
-      container.addEventListener("click", handleClick);
+    if (
+      !sceneRef.current ||
+      !cameraRef.current ||
+      !softwareSphereRef.current ||
+      !hardwareSphereRef.current
+    ) {
+      console.log("Missing required refs:", {
+        scene: !!sceneRef.current,
+        camera: !!cameraRef.current,
+        software: !!softwareSphereRef.current,
+        hardware: !!hardwareSphereRef.current,
+      });
+      return;
     }
 
-    return () => {
-      console.log("Cleaning up event listeners");
-      if (container) {
-        container.removeEventListener("mousemove", handleMouseMove);
-        container.removeEventListener("click", handleClick);
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, cameraRef.current);
+
+    const objectsToTest = [
+      softwareSphereRef.current,
+      hardwareSphereRef.current,
+    ];
+    console.log(
+      "Testing intersection with objects:",
+      objectsToTest.map((obj) => obj.name)
+    );
+
+    const intersects = raycaster.intersectObjects(objectsToTest);
+    console.log("Intersections found:", intersects.length);
+
+    if (intersects.length > 0) {
+      const hoveredObject = intersects[0].object;
+      console.log("Intersected object:", hoveredObject.name);
+
+      if (hoveredObject === softwareSphereRef.current) {
+        console.log("Setting hover state to software");
+        setHoveredSphere("software");
+        document.body.style.cursor = "pointer";
+      } else if (hoveredObject === hardwareSphereRef.current) {
+        console.log("Setting hover state to hardware");
+        setHoveredSphere("hardware");
+        document.body.style.cursor = "pointer";
       }
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+    } else {
+      setHoveredSphere(null);
+      document.body.style.cursor = "default";
+    }
+  };
+
+  const handleClick = (event: MouseEvent) => {
+    const containerBounds = containerRef.current?.getBoundingClientRect();
+    if (!containerBounds) return;
+
+    const x = event.clientX - containerBounds.left;
+    const y = event.clientY - containerBounds.top;
+
+    const mouse = new THREE.Vector2();
+    mouse.x = (x / containerBounds.width) * 2 - 1;
+    mouse.y = -(y / containerBounds.height) * 2 + 1;
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, cameraRef.current!);
+
+    const intersects = raycaster.intersectObjects([
+      softwareSphereRef.current!,
+      hardwareSphereRef.current!,
+    ]);
+
+    if (intersects.length > 0) {
+      const clickedObject = intersects[0].object;
+      if (clickedObject === softwareSphereRef.current) {
+        navigate("/projects/software");
+      } else if (clickedObject === hardwareSphereRef.current) {
+        navigate("/projects/hardware");
       }
-      if (containerRef.current && rendererRef.current?.domElement) {
-        containerRef.current.removeChild(rendererRef.current.domElement);
-      }
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
+    }
+  };
+
+  const handleResize = () => {
+    if (!containerRef.current || !rendererRef.current || !cameraRef.current)
+      return;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    cameraRef.current.aspect = width / height;
+    cameraRef.current.updateProjectionMatrix();
+    rendererRef.current.setSize(width, height);
+  };
+
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (!isMobile) {
+        handleResize();
       }
     };
-  }, []);
+
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      initScene();
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("click", handleClick);
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("mousemove", handleMouseMove);
+        window.removeEventListener("click", handleClick);
+        window.removeEventListener("resize", handleResize);
+        if (rendererRef.current) {
+          rendererRef.current.dispose();
+        }
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current);
+        }
+      };
+    }
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div className="mobile-projects-container">
+        <motion.div
+          className="mobile-button hardware"
+          onClick={() => navigate("/projects/hardware")}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <h2>Hardware</h2>
+          <p>Explore my hardware projects</p>
+        </motion.div>
+        <motion.div
+          className="mobile-button software"
+          onClick={() => navigate("/projects/software")}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="softwareText">Software</h2>
+          <p>Explore my software projects</p>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 relative">

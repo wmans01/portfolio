@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import ProjectModal from "../components/ProjectModal";
 
 interface Project {
@@ -70,7 +69,6 @@ const projectsData: Project[] = [
 type SortOption = "date" | "name" | "random";
 
 const Software: React.FC = () => {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("date");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);

@@ -30,7 +30,7 @@ const About: React.FC = () => {
       />
       <div
         style={{
-          maxWidth: 580,
+          maxWidth: window.innerWidth < 768 ? 300 : 580,
           textAlign: "left",
           fontFamily: "'Roboto Mono', monospace",
           color: "var(--off-white)",
@@ -60,10 +60,9 @@ const About: React.FC = () => {
         <div
           style={{
             display: "flex",
-            justifyContent: "center", // Changed to center the items
+            justifyContent: "center",
             gap: 32,
             marginTop: 32,
-            // marginBottom: 18,
             position: "relative",
             zIndex: 1,
           }}
