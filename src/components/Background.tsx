@@ -236,7 +236,7 @@ function CursorLight() {
       light.current.position.set(
         (pointer.x * viewport.width) / 2,
         (pointer.y * viewport.height) / 2,
-        5 // Keep light slightly in front of spheres
+        5
       );
     }
   });
@@ -331,7 +331,6 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
       particles.current = [];
 
       for (let i = 0; i < count; i++) {
-        // Vary size less: 0.5x to 1.5x base
         const sizeVariation = 0.5 + Math.random() * 1.0;
         const radius = BASE_RADIUS * sizeVariation;
 
@@ -340,7 +339,7 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         let color;
         if (colorRand < 0.33) color = 0xffffff; // white
         else if (colorRand < 0.66) color = 0x000000; // black
-        else color = 0x00b0ff; // blue (was red)
+        else color = 0x00b0ff; // blue
 
         const material = new THREE.MeshPhysicalMaterial({
           color,
@@ -467,7 +466,6 @@ const ParticleSystem = forwardRef<any, ParticleSystemProps>(
         targetRotation.current.y += mouseDelta.x * ROTATION_SENSITIVITY;
       }
 
-      // Smoother interpolation of rotation
       lastRotation.current.y +=
         (targetRotation.current.y - lastRotation.current.y) *
         ROTATION_INTERPOLATION;

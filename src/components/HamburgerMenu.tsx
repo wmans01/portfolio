@@ -9,20 +9,17 @@ const HamburgerMenu: React.FC = () => {
   const toggleMenu = () => {
     if (isOpen) {
       setIsClosing(true);
-      // Wait for animation to complete before removing the overlay
       setTimeout(() => {
         setIsOpen(false);
         setIsClosing(false);
-      }, 300); // Match this with the CSS animation duration
+      }, 300);
     } else {
       setIsOpen(true);
     }
   };
 
   const handleNavigation = (path: string) => {
-    // Navigate immediately
     navigate(path);
-    // Close the menu
     setIsClosing(true);
     setTimeout(() => {
       setIsOpen(false);

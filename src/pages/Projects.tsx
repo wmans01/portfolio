@@ -57,7 +57,6 @@ const Projects: React.FC = () => {
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Create techy textures
     const createWhiteTexture = () => {
       const canvas = document.createElement("canvas");
       canvas.width = 512;
@@ -183,7 +182,6 @@ const Projects: React.FC = () => {
     const stars = createStarfield();
     scene.add(stars);
 
-    // Calculate responsive sizes based on screen width
     const getResponsiveSizes = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
@@ -195,11 +193,9 @@ const Projects: React.FC = () => {
 
     const { baseSize } = getResponsiveSizes();
 
-    // Create spheres with responsive size
     const softwareGeometry = new THREE.SphereGeometry(baseSize, 64, 64);
     const hardwareGeometry = new THREE.SphereGeometry(baseSize, 64, 64);
 
-    // Add lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
@@ -207,7 +203,6 @@ const Projects: React.FC = () => {
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Add additional rim light for the blue sphere
     const rimLight = new THREE.DirectionalLight(0x6666ff, 0.5);
     rimLight.position.set(-5, 0, -5);
     scene.add(rimLight);
@@ -262,10 +257,9 @@ const Projects: React.FC = () => {
       if (softwareSphereRef.current && hardwareSphereRef.current) {
         const { orbitRadius } = getResponsiveSizes();
 
-        // Update sphere positions with an additional -2 units in Y to move them up
         softwareSphereRef.current.position.x = Math.cos(-time) * orbitRadius;
         softwareSphereRef.current.position.z = Math.sin(-time) * orbitRadius;
-        softwareSphereRef.current.position.y = 0; // Move spheres higher up
+        softwareSphereRef.current.position.y = 0;
         softwareSphereRef.current.rotation.x += 0.01;
         softwareSphereRef.current.rotation.y += 0.01;
 
@@ -273,11 +267,10 @@ const Projects: React.FC = () => {
           Math.cos(-time + Math.PI) * orbitRadius;
         hardwareSphereRef.current.position.z =
           Math.sin(-time + Math.PI) * orbitRadius;
-        hardwareSphereRef.current.position.y = 0; // Move spheres higher up
+        hardwareSphereRef.current.position.y = 0;
         hardwareSphereRef.current.rotation.x += 0.01;
         hardwareSphereRef.current.rotation.y += 0.01;
 
-        // Animate both sphere textures
         if (softwareTexture) {
           const time = Date.now() * 0.0001;
           softwareTexture.offset.x = Math.sin(time) * 0.2;
@@ -289,7 +282,6 @@ const Projects: React.FC = () => {
           hardwareTexture.offset.y = Math.cos(time) * 0.2;
         }
 
-        // Twinkle stars
         if (stars.geometry.attributes.size) {
           const sizes = stars.geometry.attributes.size.array as Float32Array;
           for (let i = 0; i < sizes.length; i++) {
@@ -304,7 +296,6 @@ const Projects: React.FC = () => {
 
     animate();
 
-    // Update handleResize
     const handleResize = () => {
       const { baseSize } = getResponsiveSizes();
 
@@ -558,6 +549,7 @@ const Projects: React.FC = () => {
           >
             Hover over the orbiting spheres to discover different project
             categories.
+            <div className="italic">(excuse the jankness pls)</div>
           </p>
           <p
             style={{
@@ -566,7 +558,8 @@ const Projects: React.FC = () => {
               opacity: 0.9,
             }}
           >
-            Click to view the collection of projects in each category.
+            Click the corresponding spheres to view the collection of projects
+            in each category.
           </p>
         </div>
         <div

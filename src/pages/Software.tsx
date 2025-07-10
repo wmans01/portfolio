@@ -17,20 +17,19 @@ interface Project {
   };
 }
 
-// Sample data - replace with your actual projects
 const projectsData: Project[] = [
   {
     id: "1",
-    title: "Portfolio Website",
+    title: "This website!",
     description:
-      "A modern, interactive portfolio website built with React, TypeScript, and Three.js featuring dynamic 3D elements.",
+      "An interactive portfolio website built with React, TypeScript, and Three.js with dynamic 3D elements.",
     fullDescription:
-      "This portfolio website showcases my work with a unique 3D interactive background and smooth transitions. Built with React, TypeScript, and Three.js, it features a particle system, dynamic lighting, and responsive design. The project demonstrates modern web development practices and creative UI/UX design.",
+      "This portfolio website showcases some of my work and who I am. It is built with React, TypeScript, and Three.js.",
     image: "/projects/portfolio.jpg",
-    date: "2024-03-15",
+    date: "2025-07-10",
     technologies: ["React", "TypeScript", "Three.js", "TailwindCSS"],
     links: {
-      github: "https://github.com/yourusername/portfolio",
+      github: "https://github.com/wmans01/portfolio",
       demo: "https://your-portfolio.com",
     },
   },

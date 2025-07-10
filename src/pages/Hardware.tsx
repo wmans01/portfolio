@@ -17,7 +17,6 @@ interface Project {
   };
 }
 
-// Sample data - replace with your actual projects
 const projectsData: Project[] = [
   {
     id: "1",
