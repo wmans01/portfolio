@@ -10,13 +10,11 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    // For landing page, set visible immediately
     if (location.pathname === "/") {
       setIsVisible(true);
       return;
     }
 
-    // For other pages, start invisible and fade in
     setIsVisible(false);
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -32,7 +30,6 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
         transition: "opacity 0.3s ease-in-out",
         position: "relative",
         width: "100%",
-        height: "100%",
       }}
     >
       {children}

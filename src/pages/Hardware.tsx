@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import ProjectModal from "../components/ProjectModal";
+import Footer from "../components/Footer";
 
 interface Project {
   id: string;
@@ -206,20 +207,16 @@ const Hardware: React.FC = () => {
   }, [searchQuery, sortBy]);
 
   return (
-    <div className="min-h-screen w-full" style={{ cursor: "default" }}>
-      {/* Header */}
+    <div className="w-full" style={{ cursor: "default" }}>
       <div className="sticky top-20 bg-[#1a1e28] w-[80%] mx-auto z-10">
         <h1 className="text-4xl font-bold text-center text-[#00b0ff] py-4">
           Hardware Projects
         </h1>
       </div>
 
-      {/* Spacer */}
       <div className="h-[100px]" />
 
-      {/* Main Content */}
       <div className="flex flex-col items-center">
-        {/* Search and Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -258,8 +255,7 @@ const Hardware: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-8 w-[80%]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 pb-24 w-[80%]">
           {filteredAndSortedProjects.map((project) => (
             <motion.div
               key={project.id}
@@ -291,7 +287,8 @@ const Hardware: React.FC = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      <div className="h-8" />
+
       <div
         className={`fixed inset-0 ${selectedProject ? "z-[100]" : "z-[-1]"}`}
       >
@@ -300,6 +297,7 @@ const Hardware: React.FC = () => {
           onClose={() => setSelectedProject(null)}
         />
       </div>
+      <Footer />
     </div>
   );
 };

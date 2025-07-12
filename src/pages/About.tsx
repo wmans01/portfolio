@@ -23,7 +23,7 @@ const About: React.FC = () => {
           height: 220,
           borderRadius: "50%",
           objectFit: "cover",
-          marginTop: window.innerWidth < 768 ? 48 : 24, // Double margin on mobile screens
+          marginTop: window.innerWidth < 768 ? 48 : 24,
           marginBottom: 20,
           boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
         }}
@@ -42,9 +42,10 @@ const About: React.FC = () => {
       >
         <p style={{ marginBottom: 18 }}>
           Based in Massachusetts, I'm a high school junior and the team captain
-          for a nationally recognized VEX robotics team. I've built robots and developed AI models for traffic optimization, CubeSATs for
-          power outage detection, and even a horror-themed puzzle box inspired
-          by my favorite books.
+          for a nationally recognized VEX robotics team. I've built robots and
+          developed AI models for traffic optimization, CubeSATs for power
+          outage detection, and even a horror-themed puzzle box inspired by my
+          favorite books.
         </p>
         <p style={{ marginBottom: 18 }}>
           I love building things that matter: from a gutter-cleaning robot to a
@@ -67,7 +68,7 @@ const About: React.FC = () => {
           }}
         >
           <a
-            href="mailto:jeremywang@gmail.com"
+            href="mailto:jeremywang08@gmail.com"
             aria-label="Email"
             style={{
               color: "var(--off-white)",
