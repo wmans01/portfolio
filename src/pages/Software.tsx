@@ -30,37 +30,135 @@ const projectsData: Project[] = [
     technologies: ["React", "TypeScript", "Three.js", "TailwindCSS"],
     links: {
       github: "https://github.com/wmans01/portfolio",
-      demo: "https://your-portfolio.com",
+      demo: "https://portfolio.com",
     },
   },
   {
     id: "2",
-    title: "AI Image Generator",
+    title: "Badatro",
     description:
-      "A web application that generates images using AI, featuring real-time previews and custom style options.",
+      "Balatro but bad. This is a extremely dumbed down version of balatro that I made in Java for my AP Computer Science A final project. (Missing a lot of features)",
     fullDescription:
-      "This AI-powered image generation tool allows users to create unique artwork using various AI models. The application features real-time previews, custom style options, and a user-friendly interface. Built with Python and React, it demonstrates integration with AI APIs and modern web development practices.",
-    image: "/projects/ai-generator.jpg",
-    date: "2023-12-01",
-    technologies: ["Python", "React", "TensorFlow", "REST API"],
+      "Balatro but bad. This is a extremely dumbed down version of balatro that I made in Java for my AP Computer Science A final project. It uses MongoDB to store player data. THe GUI is also made with JavaFX",
+    image: "/projects/badatro.jpg",
+    date: "2025-06-10",
+    technologies: ["MongoDB", "JavaFX", "Java"],
     links: {
-      github: "https://github.com/yourusername/ai-generator",
-      demo: "https://ai-generator.com",
+      github: "https://github.com/wmans01/Badatro",
     },
   },
   {
     id: "3",
-    title: "Task Management App",
+    title: "Todoer",
     description:
-      "A full-stack task management application with real-time updates and collaborative features.",
+      "A portable device to display / edit your todo list like an interactive picture frame.",
     fullDescription:
-      "A comprehensive task management solution featuring real-time updates, team collaboration, and advanced filtering. Built with Node.js, React, and WebSocket technology, it provides a seamless user experience with offline support and data synchronization.",
-    image: "/projects/task-manager.jpg",
-    date: "2023-08-20",
-    technologies: ["Node.js", "React", "MongoDB", "WebSocket"],
+      "This was a project that I made which used a touchscreen powered by a Raspberry Pi 5 (overkill, I know) When powered on, it immediately boots into a tkinter python application. The python applications interacts with the Todoist API, being able to retrieve and complete tasks through the device only. I had to play around a bit with the touchscreen/input capture methods, as it was my first time using a touchscreen monitor.",
+    image: "/projects/todoer.jpg",
+    date: "2025-03-15",
+    technologies: ["Python", "Bash", "Ubuntu", "Raspberry Pi"],
     links: {
-      github: "https://github.com/yourusername/task-manager",
-      demo: "https://task-manager.com",
+      github: "https://github.com/wmans01/Todoer",
+    },
+  },
+  {
+    id: "4",
+    title: "Numberosity Site 2.0",
+    description:
+      "This was a rewrite of the previous Numberosity Academy website, which was made with Wordpress.",
+    fullDescription:
+      "The purpose of this was to make the information on the site more accessible, as well as draw in more interested people. The new site was designed to be more user-friendly and holds all of the previous math and robotics course material.",
+    image: "/projects/numberositysite.jpg",
+    date: "2024-12-20",
+    technologies: ["React", "TailwindCSS"],
+    links: {
+      github: "https://github.com/wmans01/NumberositySite2.0",
+      demo: "https://numberosity.org",
+    },
+  },
+  {
+    id: "5",
+    title: "BWSI CubeSAT",
+    description:
+      "A 1U cube satellite to detect power outages with OpenCV and get first responders to people in need faster.",
+    fullDescription:
+      "This was a project done with a team for the BWSI CubeSat challenge, where we were tasked to design and code a 1U cubeSat. We used openCV to take images from the picamera and display the darker areas/suspected power outage areas compared to an existing map of the are.",
+    image: "/projects/cubesat.jpg",
+    date: "2024-03-30",
+    technologies: [
+      "Python",
+      "Picamera",
+      "Raspbian",
+      "Raspberry Pi",
+      "CubeSAT,",
+      "OpenCV",
+    ],
+    links: {
+      video: "https://youtu.be/7LWsgPeqgxI",
+    },
+  },
+  {
+    id: "6",
+    title: "Giftly",
+    description: "A gift picker to give better gifts!",
+    fullDescription:
+      "This was a project done with a team for the MIT Blueprint Hackathon. It is a mobile application designed with React native, and tested on mobile with Expo Go. It features an interactive list, where users can enter new ideas for gifts, as well as a gift picker based on interests, using Google's Word2Vec",
+    image: "/projects/giftly.jpg",
+    date: "2025-02-10",
+    technologies: [
+      "Expo Go",
+      "Hackathon",
+      "Word2Vec",
+      "React Native",
+      "Expo Go",
+    ],
+    links: {
+      github: "https://github.com/viv511/giftly",
+    },
+  },
+  {
+    id: "7",
+    title: "CyberPassword",
+    description: "Password Generator and Security Simulator",
+    fullDescription:
+      "This was a project done with a team for the Stem Warrior Hacks Hackathon. It is a webpage that checks the stability of an entered password, and also generates a password based on familiar words with text-to-speech AI.",
+    image: "/projects/cyberpassword.jpg",
+    date: "2024-03-30",
+    technologies: ["HTML", "Javascript", "Hackathon", "AI"],
+    links: {
+      demo: "https://devpost.com/software/cyberpassword#updates",
+    },
+  },
+  {
+    id: "8",
+    title: "BWSI RACECAR",
+    description: "Autonomous Vehicle Goes Vroom",
+    fullDescription:
+      "This was a project done with a team for the MIT BWSI RACECAR course. It involved motion controllers such as PID and tracking movement with an IMU, as well as using openCV and a Lidar to get inputs from its surroundings.",
+    image: "/projects/racecar.jpg",
+    date: "2024-03-30",
+    technologies: [
+      "Autonomous Vehicle",
+      "Robotics",
+      "Python",
+      "ROS 2",
+      "OpenCV",
+    ],
+    links: {
+      demo: "https://sites.mit.edu/mit-racecar/papers-volume-1/",
+    },
+  },
+  {
+    id: "9",
+    title: "Decaptcha",
+    description: "ReCaptcha V1 Solver",
+    fullDescription:
+      "This was a project done for the ECE course I took at the WPI Frontiers Summer Program. It was trained on a captcha dataset (linked on the github) to solve V1 reCaptcha tests, which as of now, are discontinued.",
+    image: "/projects/decaptcha.jpg",
+    date: "2023-07-21",
+    technologies: ["Scikit Learn", "AI/ML", "Python", "R"],
+    links: {
+      github: "https://github.com/wmans01/DeCaptcha",
     },
   },
 ];

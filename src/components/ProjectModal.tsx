@@ -66,7 +66,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="!p-8 overflow-y-auto">
+            <div className="!p-6 overflow-y-auto">
               <div className="flex justify-between items-center mb-12">
                 <h2 className="text-4xl font-bold !text-white">
                   {project.title}
@@ -76,10 +76,31 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                 </span>
               </div>
 
-              <div className="mb-16">
+              <div className="mb-40">
                 <p className="!text-gray-300 text-lg leading-relaxed">
                   {project.fullDescription}
                 </p>
+              </div>
+              <div className="font-bold italic">
+                <a href={project.links?.github}>
+                  {typeof project.links?.github === "undefined" ? "" : "github"}
+                </a>
+              </div>
+              <div
+                className="pt-4 font-bold
+               italic"
+              >
+                <a href={project.links?.demo}>
+                  {typeof project.links?.demo === "undefined" ? "" : "demo"}
+                </a>
+              </div>
+              <div
+                className="pt-4 font-bold
+               italic"
+              >
+                <a href={project.links?.video}>
+                  {typeof project.links?.video === "undefined" ? "" : "video"}
+                </a>
               </div>
             </div>
           </div>
