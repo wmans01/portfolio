@@ -13,6 +13,7 @@ interface Project {
     github?: string;
     demo?: string;
     video?: string;
+    grabcad?: string;
   };
 }
 
@@ -100,6 +101,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               >
                 <a href={project.links?.video}>
                   {typeof project.links?.video === "undefined" ? "" : "video"}
+                </a>
+              </div>
+              <div
+                className="pt-4 font-bold
+               italic"
+              >
+                <a href={project.links?.grabcad}>
+                  {typeof project.links?.grabcad === "undefined"
+                    ? ""
+                    : "grabcad"}
                 </a>
               </div>
             </div>

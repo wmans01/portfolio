@@ -14,64 +14,160 @@ interface Project {
     github?: string;
     demo?: string;
     video?: string;
+    grabcad?: string;
   };
 }
 
 const projectsData: Project[] = [
   {
     id: "1",
-    title: "VEX Robotics",
+    title: "LMT Trophies",
     description:
-      "Lead designer for a nationally recognized VEX robotics team, developing autonomous systems and innovative mechanical solutions.",
+      "Trophies designed for the Lexington Math Tournament 2023 & 2024 Tetris minigame rounds.",
     fullDescription:
-      "As the lead designer for our VEX robotics team, I developed autonomous systems and mechanical solutions that helped us achieve national recognition. The project involved designing and implementing complex robotic systems using C++ for programming and CAD for mechanical design.",
-    image: "/projects/vex-robotics.jpg",
-    date: "2024-03-15",
-    technologies: ["C++", "CAD", "Robotics", "Autonomous Systems"],
+      "Trophies designed for the Lexington Math Tournament 2023 & 2024 Tetris minigame rounds. Designed with Fusion 360.",
+    image: "/projects/lmt.jpg",
+    date: "2023-01-7",
+    technologies: ["CAD", "CAM", "Fusion"],
     links: {
-      github: "https://github.com/yourusername/vex-robotics",
-      video: "https://youtube.com/...",
+      grabcad: "https://grabcad.com/library/lmt-tetris-trophies-2023-2",
     },
   },
   {
     id: "2",
-    title: "Gutter-cleaning Robot",
+    title: "Robolight Trophies",
     description:
-      "Developed an autonomous robot for gutter maintenance, featuring advanced navigation and cleaning mechanisms.",
+      "Trophies designed for the 2025 Numberosity Academy robotics spotlight event.",
     fullDescription:
-      "This autonomous gutter-cleaning robot was designed to safely and efficiently maintain residential gutters. It features computer vision for navigation, custom cleaning mechanisms, and failsafe systems to prevent damage to property.",
-    image: "/projects/gutter-robot.jpg",
-    date: "2023-12-01",
-    technologies: [
-      "Arduino",
-      "Raspberry Pi",
-      "Computer Vision",
-      "Mechanical Design",
-    ],
-    links: {
-      github: "https://github.com/yourusername/gutter-robot",
-      video: "https://youtube.com/...",
-    },
+      "Trophies designed for the 2025 Numberosity Academy robotics spotlight event. Designed with Autodesk Inventor.",
+    image: "/projects/robolight.png",
+    date: "2025-3-14",
+    technologies: ["CAD", "CAM", "Inventor"],
+    links: {},
   },
   {
     id: "3",
-    title: "3D Printer Project",
+    title: "DIY CNC Mill Project",
     description:
-      "Designed and built a high-performance 3D printer with advanced features and precision engineering.",
+      "Designed and built an arduino controlled CNC mill to cut wood, plastic, and metal.",
     fullDescription:
-      "A custom-built 3D printer featuring high-precision motion systems, advanced firmware, and custom electronics. The project involved mechanical design, electronics assembly, and firmware development to create a reliable and precise printing system.",
-    image: "/projects/3d-printer.jpg",
-    date: "2023-08-20",
+      "A custom-built 2' x 3' CNC Mill. First designed in SOLIDWORKS and made out of wood. Powered by Arduino, and later machined its out aluminum parts to replace the wood. Also doubles as a diode laser cutter.",
+    image: "/projects/cnc.jpg",
+    date: "2024-07-12",
     technologies: [
-      "3D Printing",
-      "Mechanical Design",
-      "Electronics",
-      "Firmware",
+      "Carpentry",
+      "Machines",
+      "Arduino",
+      "SOLIDWORKS",
+      "CAM",
+      "CAD",
     ],
+    links: {},
+  },
+  {
+    id: "4",
+    title: "VEX Mini Competition Switch",
+    description: "A mini competition switch for V5RC",
+    fullDescription:
+      "This is an extremely low profile VEX competition switch, with a custom PCB. It supports up to 2 controllers connected to it. Designed with KiCAD.",
+    image: "/projects/compswitch.jpg",
+    date: "2025-05-15",
+    technologies: ["KiCAD", "Electronics"],
     links: {
-      github: "https://github.com/yourusername/3d-printer",
-      video: "https://youtube.com/...",
+      video: "https://photos.app.goo.gl/PhrdoHWYY9gN8jkV8",
     },
+  },
+  {
+    id: "5",
+    title: "Echo10",
+    description: "An 11-key macropad",
+    fullDescription:
+      "Echo10 is a 11 key macropad (10.57% of the keys of an actual keyboard, hence the name). It uses KMK firmware and maximizes functionality through three layers of toggleable keymaps.",
+    image: "/projects/Echo10.png",
+    date: "2025-06-27",
+    technologies: ["KiCAD", "Electronics"],
+    links: {
+      github: "https://github.com/wmans01/Echo10/",
+    },
+  },
+  {
+    id: "6",
+    title: "BWSI CubeSAT",
+    description:
+      "A 1U cube satellite to detect power outages with OpenCV and get first responders to people in need faster.",
+    fullDescription:
+      "This was a project done with a team for the BWSI CubeSat challenge, where we were tasked to design and code a 1U cubeSat. I was the hardware lead, and designed the CubeSat with Fusion 360.",
+    image: "/projects/cubesathardware.jpg",
+    date: "2024-03-30",
+    technologies: ["Fusion 360", "Raspberry Pi"],
+    links: {
+      video: "https://youtu.be/7LWsgPeqgxI",
+    },
+  },
+  {
+    id: "7",
+    title: "BWSI CreATe",
+    description:
+      "A 1U cube satellite to detect power outages with OpenCV and get first responders to people in need faster.",
+    fullDescription:
+      "This was a project done with a team for the BWSI CreATe challenge, where we worked with someone in need to design assistive technology. I was the hardware lead, and designed the robotic walker system with Fusion 360.",
+    image: "/projects/createchal.jpg",
+    date: "2023-03-20",
+    technologies: ["Fusion 360", "3D Printing"],
+    links: {
+      video:
+        "https://beaver-works-assistive-tech.mit.edu/create-challenge/final-event/2023-final-event",
+    },
+  },
+  {
+    id: "8",
+    title: "SciOly 2024-2025 Designs",
+    description: "Some of the designs I had made for Science Olympiad 2024",
+    fullDescription: "Some of the designs I had made for Science Olympiad 2024",
+    image: "/projects/scioly.png",
+    date: "2024-11-10",
+    technologies: ["Inventor", "CNC"],
+    links: {
+      github: "https://github.com/wmans01/JeremSciOly2425",
+    },
+  },
+  {
+    id: "9",
+    title: "Todoer",
+    description:
+      "A portable device to display / edit your todo list like an interactive picture frame.",
+    fullDescription:
+      "This was a project that I made which used a touchscreen powered by a Raspberry Pi 5 (overkill, I know) When powered on, it immediately boots into a tkinter python application. The python applications interacts with the Todoist API, being able to retrieve and complete tasks through the device only. I had to play around a bit with the touchscreen/input capture methods, as it was my first time using a touchscreen monitor. Case designed with Inventor and 3D printed out of Inland Tough PLA.",
+    image: "/projects/todoer.jpg",
+    date: "2025-03-15",
+    technologies: ["Python", "Bash", "Ubuntu", "Raspberry Pi, Inventor"],
+    links: {
+      github: "https://github.com/wmans01/Todoer",
+    },
+  },
+  {
+    id: "10",
+    title: "Solootion",
+    description: "Toilet cleaning robot to solve sanitation issues",
+    fullDescription:
+      "This was a project that I made with a team to participate in the social track of the UDel's Diamond Challenge. It is an autonomous robot designed to clean toilets at large public institutions without unnecessary human interation.",
+    image: "/projects/solootion.jpg",
+    date: "2025-01-16",
+    technologies: ["Inventor", "Robotics"],
+    links: {
+      demo: "https://docs.google.com/document/d/1GuDvBDeWQQH-Hxrxjf4z9WfzkeM4sEkBA9rkJBLYtho/edit?usp=sharing",
+    },
+  },
+  {
+    id: "11",
+    title: "Gutter Gutter",
+    description: "Gutter Cleaning Robot",
+    fullDescription:
+      "This Gutter cleaning robot is designed to be able to clean all standardized gutters. It is able to dislodge debris and blow it out of the gutter while the user is in a safe place. Designed with Inventor.",
+    image: "/projects/guttergutter.jpg",
+    date: "2025-12-30",
+    technologies: ["Inventor", "Robotics"],
+    links: {},
   },
 ];
 
