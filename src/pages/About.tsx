@@ -41,21 +41,20 @@ const About: React.FC = () => {
         }}
       >
         <p style={{ marginBottom: 18 }}>
-          Based in Massachusetts, I'm a high school junior and the team captain
-          for a nationally recognized VEX robotics team. I've built robots and
+          Hey there! I'm a high school senior interested in robotics and all things STEM. I've built robots and
           developed AI models for traffic optimization, CubeSATs for power
-          outage detection, and even a horror-themed puzzle box inspired by my
-          favorite books.
+          outage detection, and even a cardboard puzzle box inspired by my
+          favorite book.
         </p>
         <p style={{ marginBottom: 18 }}>
-          I love building things that matter: from a gutter-cleaning robot to a
+          I especially love making things that matter: from a gutter-cleaning robot to a
           budget CNC milling machine. I also founded Numberosity Academy, a
-          nonprofit teaching STEM to underserved communities, raising over $30K
+          nonprofit teaching STEM to underserved communities, raising over $60K
           for outreach programs.
         </p>
         <p style={{ marginBottom: 0 }}>
           Catch me somewhere between building robots and procrastinating on
-          YouTube. Or better yet, find me using CAD at 2AM.
+          YouTube. Or better yet, find me staring at my 3D printer at 2 AM waiting for a print to finish.
         </p>
         <div
           style={{

@@ -11,8 +11,8 @@ const Blog: React.FC = () => {
       title: "Launch of this website",
       date: "July 6, 2025",
       content:
-        "Today marks the beginning of my journey into web development. I've decided to focus on React and TypeScript, as they seem to be the most in-demand skills right now. Spent the day setting up my development environment and going through the basics of React components. The learning curve is steep, but I'm excited to see where this takes me.",
-      tags: ["Learning", "React", "TypeScript"],
+        "Today is the launch of my personal website! I'm excited to share my projects and ideas with the world. Stay tuned for more updates!",
+      tags: ["Website", "React", "TypeScript"],
     },
   ];
 

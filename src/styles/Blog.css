@@ -13,7 +13,7 @@
 
 .blog-content {
   padding: 0 2rem;
-  max-width: 900px;
+  max-width: 750px;
   margin: 0 auto;
   cursor: default;
 }
@@ -70,6 +70,9 @@
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   cursor: default;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .blog-post-tags {
